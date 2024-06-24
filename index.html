@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruto do Espírito</title>
+</head>
+
+<body>
+    <form id="formulario">
+        <div>
+            <label>Com que frequência você ajuda alguém sem esperar nada em troca?</label>
+            <select name="amor">
+                <option value="Nunca">Nunca</option>
+                <option value="Raramente">Raramente</option>
+                <option value="Às vezes">Às vezes</option>
+                <option value="Frequentemente">Frequentemente</option>
+                <option value="Sempre">Sempre</option>
+            </select>
+        </div>
+        <div>
+            <label>Como você se sente na maioria dos dias?</label>
+            <select name="alegria">
+                <option value="Triste">Triste</option>
+                <option value="Neutro">Neutro</option>
+                <option value="Satisfeito">Satisfeito</option>
+                <option value="Feliz">Feliz</option>
+                <option value="Muito feliz">Muito feliz</option>
+            </select>
+        </div>
+        <!-- Continue para todas as perguntas -->
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById('formulario').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const respostas = [
+                this.amor.value,
+                this.alegria.value,
+                // Continue para todas as perguntas
+            ];
+
+            fetch('http://localhost:3000/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ respostas })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    // Aqui você pode exibir os resultados na página
+                })
+                .catch(error => console.error('Erro:', error));
+        });
+    </script>
+</body>
+
+</html>
